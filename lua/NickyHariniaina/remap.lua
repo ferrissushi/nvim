@@ -1,79 +1,71 @@
+local keymap = vim.keymap
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "open native tree" })
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-s>", ":w<CR>")
+keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "open native tree" })
+keymap.set("n", "J", "mzJ`z")
+keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+keymap.set({"n", "i"}, "<C-s>", ":w<CR>")
 vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "=ap", "ma=ap'a")
-vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
-vim.keymap.set("n", "<leader>vwm", function()
-	require("vim-with-me").StartVimWithMe()
-end)
-vim.keymap.set("n", "<leader>svwm", function()
-	require("vim-with-me").StopVimWithMe()
-end)
-vim.keymap.set("n", "<leader>cf", function()
+keymap.set("n", "<C-d>", "<C-d>zz")
+keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- for research command
+keymap.set("n", "n", "nzzzv")
+keymap.set("n", "N", "Nzzzv")
+
+keymap.set("n", "=ap", "ma=ap'a")
+
+keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
+
+keymap.set("n", "<leader>cf", function()
 	require("conform").format({ async = true })
 end)
-vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
-vim.keymap.set("i", "<C-c>", "<Esc>")
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<M-h>", "<cmd>silent !tmux-sessionizer -s 0 --vsplit<CR>")
-vim.keymap.set("n", "<M-H>", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-vim.keymap.set("n", "<leader><leader>", function()
+
+keymap.set("x", "<leader>p", [["_dP]])
+
+keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy the current line"})
+keymap.set({ "n", "v" }, "<leader>d", '"_d')
+keymap.set("i", "<C-c>", "<Esc>")
+keymap.set("n", "Q", "<nop>")
+keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "replace work under cursor"})
+keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
-vim.keymap.set("n", "<leader>jc", ":term mvn compile<CR>", { desc = "Compile current Maven project" })
-vim.keymap.set("n", "<leader>jt", ":term mvn test<CR>", { desc = "Run test" })
-vim.keymap.set("n", "<leader>jj", "<cmd>JavaRunnerRunMain<CR>", { desc = "Run every Main method" })
-vim.keymap.set("v", "<leader>jv", "<cmd>JavaRefactorExtractVariable<CR>", { desc = "Extract to a new variable" })
-vim.keymap.set("v", "<leader>jm", "<cmd>JavaRefactorExtractMethod<CR>", { desc = "Extract to a new method" })
-vim.keymap.set("n", "<leader>cd", function()
-	vim.cmd("TermExec cmd='cargo run'")
-end, { desc = "Run the rust project." })
-vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
-vim.keymap.set("i", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set("i", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set("i", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set("i", "<down>", '<cmd>echo "Use j to move!!"<CR>')
-vim.keymap.set("n", "x", '"_x')
-vim.keymap.set("v", "x", '"_x')
-vim.keymap.set("n", "<C-a>", "gg<S-v>G")
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-vim.keymap.set("n", "t", "k")
-vim.keymap.set("n", "<C-f>", "<C-b>")
-vim.keymap.set("n", "<C-b>", "<C-f>")
-vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
-vim.keymap.set("n", "x", '"_x')
-vim.keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
-vim.keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
-vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
-vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
-vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
-vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
-vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
-vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
-vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
-vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
-vim.keymap.set("n", "<C-h>", "<C-w>w")
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Open terminale" })
+
+keymap.set("n", "<leader>cpl", "<cmd>CloakPreviewLine<CR>", { desc = "Cloak preview line" })
+keymap.set("n", "<leader>cpt", "<cmd>CloakToggle<CR>", { desc = "Cloak toggle" })
+
+-- Prevent the use of arrow keys to improve the experience of moving around in the file
+keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+keymap.set("i", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+keymap.set("i", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+keymap.set("i", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+keymap.set("i", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+
+keymap.set("n", "x", '"_x')
+keymap.set("v", "x", '"_x')
+
+-- revert go up and down by page command
+keymap.set("n", "<C-f>", "<C-b>")
+keymap.set("n", "<C-b>", "<C-f>")
+
+keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+
+keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
+keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
+keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
+keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
+keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
+keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
+keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
+keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
+keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
+keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+keymap.set("n", "<C-h>", "<C-w>w")

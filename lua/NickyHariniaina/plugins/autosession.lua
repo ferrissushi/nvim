@@ -8,9 +8,10 @@ return {
       auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
     })
 
-    local keymap = vim.keymap
-
-    keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
-    keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
+    local keymap = vim.keymap.set
+    keymap("n", "<leader>as","<cmd>AutoSession save<CR>", { desc = "Save Session" })
+    keymap("n", "<leader>ar","<cmd>AutoSession restore<CR>", { desc = "Load Session" })
+    keymap("n", "<leader>aS","<cmd>AutoSession search<CR>", { desc = "Search Session" })
+    keymap("n", "<leader>ad", "<cmd>AutoSession delete<CR>", { desc = "Delete Session" })
   end,
 }
