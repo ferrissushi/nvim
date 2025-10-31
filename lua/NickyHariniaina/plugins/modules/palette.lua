@@ -1,5 +1,5 @@
 local palette = require("github-theme.palette")
-local light = palette.load("github_light")
+local light = palette.load("github_dark_high_contrast")
 
 return {
   red = light.red.base,

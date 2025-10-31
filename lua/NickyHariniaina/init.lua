@@ -37,6 +37,7 @@ autocmd("TextYankPost", {
 			higroup = "IncSearch",
 			timeout = 40,
 		})
+
 	end,
 })
 
@@ -49,7 +50,7 @@ autocmd({ "BufWritePre" }, {
 autocmd("BufEnter", {
 	group = NickyGroup,
 	callback = function()
-		pcall(vim.cmd.colorscheme, "github_light_high_contrast")
+		pcall(vim.cmd.colorscheme, "github_dark_high_contrast")
 	end,
 })
 

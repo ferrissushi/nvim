@@ -1,64 +1,84 @@
 return {
-  {
-    "tpope/vim-fugitive",
-    config = function()
-      -- Set a vim motion to <Space> + g + b to view the most recent contributers to the file
-      vim.keymap.set("n", "<leader>gb", ":Git blame<cr>", { desc = "[G]it [B]lame" })
-      -- Set a vim motion to <Space> + g + a to add the current file and changes to the staging area
-      vim.keymap.set("n", "<leader>ga", ":Git add. <cr>", { desc = "[G]it [A]dd All" })
-      -- Set a vim motion to <Space> + g + c to commit the current chages
-      vim.keymap.set("n", "<leader>gc", ":Git commit <cr>", { desc = "[G]it [C]ommit" })
-      -- Set a vim motion to <Space> + g + p to push the commited changes to the remote repository
-      vim.keymap.set("n", "<leader>gS", ":Git push -u origin HEAD<cr>", { desc = "[G]it [P]ush" })
-      -- Set a vim motion to <Space> + g + l to show commit history.
-      vim.keymap.set("n", "<leader>gl", ":Git log <cr>", { desc = "Git log" })
-    end,
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
+	{
+		"petertriho/cmp-git",
+		dependencies = { "hrsh7th/nvim-cmp" },
+		config = function()
+			local cmp = require("cmp")
+			require("cmp_git").setup()
 
-        local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
-        end
+			cmp.setup.filetype("gitcommit", {
+				sources = cmp.config.sources({
+					{ name = "git" },
+					{ name = "conventionalcommits" }, -- optional
+				}, {
+					{ name = "buffer" },
+				}),
+			})
+		end,
+	},
+	{
+		"davidsierradz/cmp-conventionalcommits", -- optional but nice
+	},
+	{
+		"tpope/vim-fugitive",
+		config = function()
+			-- Set a vim motion to <Space> + g + b to view the most recent contributers to the file
+			vim.keymap.set("n", "<leader>gb", ":Git blame<cr>", { desc = "[G]it [B]lame" })
+			-- Set a vim motion to <Space> + g + a to add the current file and changes to the staging area
+			vim.keymap.set("n", "<leader>ga", ":Git add .<cr>", { desc = "[G]it [A]dd All" })
+			-- Set a vim motion to <Space> + g + c to commit the current chages
+			vim.keymap.set("n", "<leader>gc", ":Git commit <cr>", { desc = "[G]it [C]ommit" })
+			-- Set a vim motion to <Space> + g + p to push the commited changes to the remote repository
+			vim.keymap.set("n", "<leader>gS", ":Git push -u origin HEAD<cr>", { desc = "[G]it [P]ush" })
+			-- Set a vim motion to <Space> + g + l to show commit history.
+			vim.keymap.set("n", "<leader>gl", ":Git log <cr>", { desc = "Git log" })
+		end,
+	},
+	{
+		"lewis6991/gitsigns.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {
+			on_attach = function(bufnr)
+				local gs = package.loaded.gitsigns
 
-        -- Navigation
-        map("n", "]h", gs.next_hunk, "Next Hunk")
-        map("n", "[h", gs.prev_hunk, "Prev Hunk")
+				local function map(mode, l, r, desc)
+					vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+				end
 
-        -- Actions
-        map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
-        map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
-        map("v", "<leader>hs", function()
-          gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-        end, "Stage hunk")
-        map("v", "<leader>hr", function()
-          gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-        end, "Reset hunk")
+				-- Navigation
+				map("n", "]h", gs.next_hunk, "Next Hunk")
+				map("n", "[h", gs.prev_hunk, "Prev Hunk")
 
-        map("n", "<leader>hS", gs.stage_buffer, "Stage buffer")
-        map("n", "<leader>hR", gs.reset_buffer, "Reset buffer")
+				-- Actions
+				map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
+				map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
+				map("v", "<leader>hs", function()
+					gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, "Stage hunk")
+				map("v", "<leader>hr", function()
+					gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, "Reset hunk")
 
-        map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
+				map("n", "<leader>hS", gs.stage_buffer, "Stage buffer")
+				map("n", "<leader>hR", gs.reset_buffer, "Reset buffer")
 
-        map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
+				map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
 
-        map("n", "<leader>hb", function()
-          gs.blame_line({ full = true })
-        end, "Blame line")
-        map("n", "<leader>hB", gs.toggle_current_line_blame, "Toggle line blame")
+				map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
 
-        map("n", "<leader>hd", gs.diffthis, "Diff this")
-        map("n", "<leader>hD", function()
-          gs.diffthis("~")
-        end, "Diff this ~")
+				map("n", "<leader>hb", function()
+					gs.blame_line({ full = true })
+				end, "Blame line")
+				map("n", "<leader>hB", gs.toggle_current_line_blame, "Toggle line blame")
 
-        -- Text object
-        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk")
-      end,
-    },
-  },
+				map("n", "<leader>hd", gs.diffthis, "Diff this")
+				map("n", "<leader>hD", function()
+					gs.diffthis("~")
+				end, "Diff this ~")
+
+				-- Text object
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk")
+			end,
+		},
+	},
 }

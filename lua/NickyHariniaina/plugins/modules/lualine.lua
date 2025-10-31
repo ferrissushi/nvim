@@ -1,6 +1,7 @@
 local icons = require("NickyHariniaina.utils.icons")
 local palette = require("NickyHariniaina.plugins.modules.palette")
 
+-- mode colors remain the same, but background will be dark
 local mode_color_map = {
   n = palette.blue,
   i = palette.green,
@@ -9,43 +10,47 @@ local mode_color_map = {
   R = palette.red,
 }
 
+-- dark background for the entire lualine
+local bg = palette.black
+local fg_default = palette.white
+
 return {
   mode = {
     "mode",
     fmt = function() return icons.neovim end,
     color = function()
       local mode = vim.fn.mode()
-      return { fg = mode_color_map[mode] or palette.magenta, bg = palette.white }
+      return { fg = mode_color_map[mode] or palette.magenta, bg = bg }
     end,
   },
 
   branch = {
     "branch",
     icon = icons.branch,
-    color = { fg = palette.green, bg = palette.white },
+    color = { fg = palette.green, bg = bg },
   },
 
   diff = {
     "diff",
     symbols = { added = "󰐕 ", modified = "󰜥 ", removed = "󰍴 " },
-    color = { bg = palette.white },
+    color = { bg = bg },
   },
 
   filetype = {
     "bo:filetype",
-    color = { fg = palette.black, bg = palette.white },
+    color = { fg = fg_default, bg = bg },
   },
 
   filesize = {
     "filesize",
     fmt = function(str) return str ~= "" and "(" .. str .. ")" end,
-    color = { fg = palette.gray, bg = palette.white },
+    color = { fg = palette.gray, bg = bg },
   },
 
   macro = {
     function() return vim.fn.reg_recording() end,
     icon = "REC:",
-    color = function() return { fg = palette.red, bg = palette.white } end,
+    color = function() return { fg = palette.red, bg = bg } end,
   },
 
   lsp_progress = function(state)
@@ -59,7 +64,7 @@ return {
         if #value.message > 20 then value.message = value.message:sub(1, 20) .. "..." end
         return string.format("[%s] %s (%s)", value.message, value.title, client.name)
       end,
-      color = function() return { fg = palette.gray, bg = palette.white } end,
+      color = function() return { fg = palette.gray, bg = bg } end,
     }
   end,
 
@@ -71,22 +76,22 @@ return {
       return table.concat(attached_clients, ", ")
     end,
     icon = icons.braces,
-    color = function() return { fg = palette.gray, bg = palette.white } end,
+    color = function() return { fg = palette.gray, bg = bg } end,
   },
 
   diagnostics = {
     "diagnostics",
-    color = { bg = palette.white },
+    color = { bg = bg },
   },
 
   encoding = {
     "encoding",
-    color = { fg = palette.blue, bg = palette.white },
+    color = { fg = palette.blue, bg = bg },
   },
 
   fileformat = {
     "fileformat",
-    color = { fg = palette.blue, bg = palette.white },
+    color = { fg = palette.blue, bg = bg },
   },
 
   indentation = {
@@ -95,18 +100,18 @@ return {
       local type = vim.bo[0].expandtab and "spaces" or "tabs"
       return type .. ": " .. vim.bo[0].shiftwidth
     end,
-    color = { fg = palette.blue, bg = palette.white },
+    color = { fg = palette.blue, bg = bg },
   },
 
   progress = {
     "progress",
     fmt = function(location) return vim.trim(location) end,
-    color = { fg = palette.magenta, bg = palette.white },
+    color = { fg = palette.magenta, bg = bg },
   },
 
   location = {
     "location",
     fmt = function(location) return vim.trim(location) end,
-    color = { fg = palette.magenta, bg = palette.white },
+    color = { fg = palette.magenta, bg = bg },
   },
 }
