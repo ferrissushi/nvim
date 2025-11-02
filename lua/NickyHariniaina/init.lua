@@ -2,26 +2,12 @@ require("NickyHariniaina.set")
 require("NickyHariniaina.remap")
 require("NickyHariniaina.lazy_init")
 
--- DO.not
--- DO NOT INCLUDE THIS
-
--- If i want to keep doing lsp debugging
--- function restart_htmx_lsp()
---     require("lsp-debug-tools").restart({ expected = {}, name = "htmx-lsp", cmd = { "htmx-lsp", "--level", "DEBUG" }, root_dir = vim.loop.cwd(), });
--- end
-
--- DO NOT INCLUDE THIS
--- DO.not
-
 local augroup = vim.api.nvim_create_augroup
 local NickyGroup = augroup("NickyHariniaina", {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup("HighlightYank", {})
 
-function R(name)
-	-- require("plenary.reload").reload_module(name)
-end
 
 vim.filetype.add({
 	extension = {
@@ -50,7 +36,7 @@ autocmd({ "BufWritePre" }, {
 autocmd("BufEnter", {
 	group = NickyGroup,
 	callback = function()
-		pcall(vim.cmd.colorscheme, "github_dark_high_contrast")
+		pcall(vim.cmd.colorscheme, "rose-pine-moon")
 	end,
 })
 
