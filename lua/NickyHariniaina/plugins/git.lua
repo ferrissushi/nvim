@@ -2,38 +2,50 @@ return {
 	{
 		"petertriho/cmp-git",
 		dependencies = { "hrsh7th/nvim-cmp" },
-		config = function()
-			local cmp = require("cmp")
-			require("cmp_git").setup()
-
-			cmp.setup.filetype("gitcommit", {
-				sources = cmp.config.sources({
-					{ name = "git" },
-					{ name = "conventionalcommits" }, -- optional
-				}, {
-					{ name = "buffer" },
-				}),
-			})
+		opts = {
+			-- options go here
+		},
+		init = function()
+			table.insert(require("cmp").get_config().sources, { name = "git" })
 		end,
 	},
 	{
-		"davidsierradz/cmp-conventionalcommits", -- optional but nice
+		"davidsierradz/cmp-conventionalcommits",
 	},
 	{
 		"tpope/vim-fugitive",
 		config = function()
-			-- Set a vim motion to <Space> + g + b to view the most recent contributers to the file
 			vim.keymap.set("n", "<leader>gb", ":Git blame<cr>", { desc = "[G]it [B]lame" })
-			-- Set a vim motion to <Space> + g + a to add the current file and changes to the staging area
-			vim.keymap.set("n", "<leader>ga", ":Git add .<cr>", { desc = "[G]it [A]dd All" })
-			-- Set a vim motion to <Space> + g + c to commit the current chages
-			vim.keymap.set("n", "<leader>gc", ":Git commit <cr>", { desc = "[G]it [C]ommit" })
-			-- Set a vim motion to <Space> + g + p to push the commited changes to the remote repository
-			vim.keymap.set("n", "<leader>gS", ":Git push -u origin HEAD<cr>", { desc = "[G]it [P]ush" })
-			-- Set a vim motion to <Space> + g + l to show commit history.
-			vim.keymap.set("n", "<leader>gl", ":Git log <cr>", { desc = "Git log" })
+			vim.keymap.set("n", "gu", "<cmd>diffget //2<cr>")
+			vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
+      vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open git tab for interaction"})
+
+			local nicky_group = vim.api.nvim_create_augroup("nicky_group", {})
+
+			local autocmd = vim.api.nvim_create_autocmd
+			autocmd("BufWinEnter", {
+				group = nicky_group,
+				pattern = "*",
+				callback = function()
+					if vim.bo.ft ~= "fugitive" then
+						return
+					end
+
+					local bufnr = vim.api.nvim_get_current_buf()
+					local opts = { buffer = bufnr, remap = false }
+					vim.keymap.set("n", "<leader>p", function()
+						vim.cmd.Git("push")
+					end, opts)
+
+					-- rebase always
+					vim.keymap.set("n", "<leader>P", function()
+						vim.cmd.Git({ "pull", "--rebase" })
+					end, opts)
+				end,
+			})
 		end,
 	},
+
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -79,6 +91,70 @@ return {
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk")
 			end,
+
+			signs = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+				untracked = { text = "▎" },
+			},
+			signs_staged = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+			},
 		},
+	},
+	{
+		"ldelossa/gh.nvim",
+		dependencies = {
+			{
+				"ldelossa/litee.nvim",
+				config = function()
+					require("litee.lib").setup()
+				end,
+			},
+		},
+		config = function()
+			require("litee.gh").setup()
+			require("which-key").add({
+				{ "<leader>g", group = "Git" },
+				{ "<leader>gh", group = "Github" },
+				{ "<leader>ghc", group = "Commits" },
+				{ "<leader>ghcc", "<cmd>GHCloseCommit<cr>", desc = "Close" },
+				{ "<leader>ghce", "<cmd>GHExpandCommit<cr>", desc = "Expand" },
+				{ "<leader>ghco", "<cmd>GHOpenToCommit<cr>", desc = "Open To" },
+				{ "<leader>ghcp", "<cmd>GHPopOutCommit<cr>", desc = "Pop Out" },
+				{ "<leader>ghcz", "<cmd>GHCollapseCommit<cr>", desc = "Collapse" },
+				{ "<leader>ghi", group = "Issues" },
+				{ "<leader>ghip", "<cmd>GHPreviewIssue<cr>", desc = "Preview" },
+				{ "<leader>ghl", group = "Litee" },
+				{ "<leader>ghlt", "<cmd>LTPanel<cr>", desc = "Toggle Panel" },
+				{ "<leader>ghp", group = "Pull Request" },
+				{ "<leader>ghpc", "<cmd>GHClosePR<cr>", desc = "Close" },
+				{ "<leader>ghpd", "<cmd>GHPRDetails<cr>", desc = "Details" },
+				{ "<leader>ghpe", "<cmd>GHExpandPR<cr>", desc = "Expand" },
+				{ "<leader>ghpo", "<cmd>GHOpenPR<cr>", desc = "Open" },
+				{ "<leader>ghpp", "<cmd>GHPopOutPR<cr>", desc = "PopOut" },
+				{ "<leader>ghpr", "<cmd>GHRefreshPR<cr>", desc = "Refresh" },
+				{ "<leader>ghpt", "<cmd>GHOpenToPR<cr>", desc = "Open To" },
+				{ "<leader>ghpz", "<cmd>GHCollapsePR<cr>", desc = "Collapse" },
+				{ "<leader>ghr", group = "Review" },
+				{ "<leader>ghrb", "<cmd>GHStartReview<cr>", desc = "Begin" },
+				{ "<leader>ghrc", "<cmd>GHCloseReview<cr>", desc = "Close" },
+				{ "<leader>ghrd", "<cmd>GHDeleteReview<cr>", desc = "Delete" },
+				{ "<leader>ghre", "<cmd>GHExpandReview<cr>", desc = "Expand" },
+				{ "<leader>ghrs", "<cmd>GHSubmitReview<cr>", desc = "Submit" },
+				{ "<leader>ghrz", "<cmd>GHCollapseReview<cr>", desc = "Collapse" },
+				{ "<leader>ght", group = "Threads" },
+				{ "<leader>ghtc", "<cmd>GHCreateThread<cr>", desc = "Create" },
+				{ "<leader>ghtn", "<cmd>GHNextThread<cr>", desc = "Next" },
+				{ "<leader>ghtt", "<cmd>GHToggleThread<cr>", desc = "Toggle" },
+			})
+		end,
 	},
 }
