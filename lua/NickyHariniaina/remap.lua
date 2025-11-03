@@ -1,7 +1,15 @@
 vim.g.mapleader = " "
 local keymap = vim.keymap
+
+local nnoremap = function(new_key, old_key)
+  return keymap.set("n", new_key, old_key)
+end
+
+nnoremap("J", "mzJ`z")
 keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "open native tree" })
-keymap.set("n", "J", "mzJ`z")
+
+-- keymap.set("n", "J", "mzJ`z")
+keymap.set("n", "<leader>m", "@", { desc = "execute macro"})
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
