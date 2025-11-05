@@ -1,11 +1,10 @@
-require("NickyHariniaina.set")
-require("NickyHariniaina.remap")
-require("NickyHariniaina.lazy_init")
+require("ferrissushi.set")
+require("ferrissushi.remap")
+require("ferrissushi.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
-local NickyGroup = augroup("NickyHariniaina", {})
-
 local autocmd = vim.api.nvim_create_autocmd
+local ferrissushiGroup = augroup("ferrissushi", {})
 local yank_group = augroup("HighlightYank", {})
 
 
@@ -28,20 +27,20 @@ autocmd("TextYankPost", {
 })
 
 autocmd({ "BufWritePre" }, {
-	group = NickyGroup,
+	group = ferrissushiGroup,
 	pattern = "*",
 	command = [[%s/\s\+$//e]],
 })
 
 autocmd("BufEnter", {
-	group = NickyGroup,
+	group = ferrissushiGroup,
 	callback = function()
-		pcall(vim.cmd.colorscheme, "rose-pine-moon")
+		pcall(vim.cmd.colorscheme, "ferriouscolor-light")
 	end,
 })
 
 autocmd("LspAttach", {
-	group = NickyGroup,
+	group = ferrissushiGroup,
 	callback = function(e)
 		local opts = { buffer = e.buf }
 		vim.keymap.set("n", "gd", function()

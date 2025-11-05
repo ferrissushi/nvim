@@ -1,4 +1,4 @@
-local comp = require("NickyHariniaina.plugins.modules.lualine")
+local comp = require("ferrissushi.plugins.modules.lualine")
 
 local state = {
   lsp_progress = nil,

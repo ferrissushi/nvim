@@ -1,5 +1,5 @@
-local icons = require("NickyHariniaina.utils.icons")
-local palette = require("NickyHariniaina.plugins.modules.palette")
+local icons = require("ferrissushi.utils.icons")
+local palette = require("ferrissushi.plugins.modules.palette")
 
 -- mode colors remain the same, but background will be dark
 local mode_color_map = {
