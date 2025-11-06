@@ -16,7 +16,7 @@ inoremap("<right>", '<cmd>echo "Use l to move!!"<CR>')
 inoremap("<up>", '<cmd>echo "Use k to move!!"<CR>')
 inoremap("<down>", '<cmd>echo "Use j to move!!"<CR>')
 nnoremap("<leader>d", '"_d')
-nnoremap("Q", "<nop>")
+nnoremap("Q", "<nop>") -- Disable entering in the Ex-mode
 nnoremap("<leader>k", "<cmd>lnext<CR>zz")
 nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 nnoremap(

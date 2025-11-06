@@ -35,7 +35,7 @@ autocmd({ "BufWritePre" }, {
 autocmd("BufEnter", {
 	group = ferrissushiGroup,
 	callback = function()
-		pcall(vim.cmd.colorscheme, "ferriouscolor-light")
+		pcall(vim.cmd.colorscheme, "rose-pine-main")
 	end,
 })
 
