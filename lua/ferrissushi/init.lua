@@ -32,13 +32,6 @@ autocmd({ "BufWritePre" }, {
 	command = [[%s/\s\+$//e]],
 })
 
-autocmd("BufEnter", {
-	group = ferrissushiGroup,
-	callback = function()
-		pcall(vim.cmd.colorscheme, "rose-pine-main")
-	end,
-})
-
 autocmd("LspAttach", {
 	group = ferrissushiGroup,
 	callback = function(e)

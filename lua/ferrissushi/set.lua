@@ -1,46 +1,50 @@
-vim.opt.scrolloff = 10
-vim.opt.guicursor = ""
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.number = true
-vim.opt.undofile = true
-vim.opt.cursorline = true
-vim.opt.expandtab = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.breakindent = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.backspace = "indent,eol,start"
-vim.opt.clipboard:append("unnamedplus")
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.swapfile = false
-vim.opt.tabstop = 2
-vim.opt.mouse = ""
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.colorcolumn = "100"
-vim.opt.wrap = false
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.clipboard:append("unnamedplus")
-vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-vim.opt.updatetime = 50
-vim.opt.showmode = false
+local opt = vim.opt
+local cmd = vim.cmd
+local o = vim.o
+local g = vim.g
 
-vim.cmd([[let &t_Cs = "\e[4:3m"]])
-vim.cmd([[let &t_Ce = "\e[4:0m"]])
+opt.scrolloff = 10
+opt.guicursor = ""
+opt.nu = true
+opt.relativenumber = true
+opt.number = true
+opt.undofile = true
+opt.cursorline = true
+opt.expandtab = true
+opt.autoindent = true
+opt.smartindent = true
+opt.breakindent = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.backspace = "indent,eol,start"
+opt.clipboard:append("unnamedplus")
+opt.splitright = true
+opt.splitbelow = true
+opt.swapfile = false
+opt.tabstop = 2
+opt.mouse = "a"
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.hlsearch = false
+opt.incsearch = true
+opt.colorcolumn = "100"
+opt.wrap = false
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.clipboard:append("unnamedplus")
+opt.termguicolors = true
+opt.signcolumn = "yes"
+opt.isfname:append("@-@")
+opt.updatetime = 50
+opt.showmode = false
+g.have_nerd_font = true
+o.timeoutlen = 200
+o.confirm = true
+cmd([[let &t_Cs = "\e[4:3m"]])
+cmd([[let &t_Ce = "\e[4:0m"]])
 
 vim.diagnostic.config({
 	virtual_text = true,
 	signs = false,
-	set_loclist = false,
-  update_in_insert = false,
-	severity_sort = true,
 })

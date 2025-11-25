@@ -1,16 +1,15 @@
--- This ain't working rn, i should debugt it later
-function SetBgTransparent()
-  vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
-  vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
-end
-
 return {
+  {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      require("kanagawa").setup({
+        undercurl = true,
+      })
+    end
+  },
 	{
 		"kdheepak/monochrome.nvim",
 		config = function()
-			vim.cmd("colorscheme monochrome")
-      SetBgTransparent()
 		end,
 	},
 	{
@@ -23,7 +22,6 @@ return {
 	{
 		"sainnhe/everforest",
 		config = function()
-			vim.cmd("colorscheme everforest")
 		end,
 	},
 	{
@@ -32,7 +30,6 @@ return {
 		config = function()
 			require("rose-pine").setup({
 				styles = {
-					transparency = true,
 				},
 			})
 		end,
