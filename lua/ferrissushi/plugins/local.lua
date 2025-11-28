@@ -1,22 +1,8 @@
 return {
   {
-    dir = "~/menu.nvim",
-    lazy = true,
+    dir = "~/project/present.nvim",
     config = function ()
-      require("menu").open("", {
-        mouse = true,
-        border = false,
-      })
-      local norremap = require("ferrissushi.utils.remap_funtion").nnoremap;
-      norremap( "<C-,", function()
-        require("menu").open("default")
-      end, {})
     end
-  },
-  {
-    dir = "~/typr.nvim",
-    opts = {},
-    cmd = { "Typr", "TyprStats" },
   },
   {
     dir = "~/minty.nvim",
@@ -32,7 +18,6 @@ return {
   {
     dir = "~/nightfox.nvim",
     config = function ()
-      vim.cmd("colorscheme carbonfox")
       require("nightfox").setup({
         options = {
         }

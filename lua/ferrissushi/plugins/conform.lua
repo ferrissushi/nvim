@@ -7,7 +7,7 @@ return {
 				c = { "clang" },
 				cpp = { "ast-grep" },
 				lua = { "stylua" },
-				go = { "gofmt" },
+				go = { "gofumpt" },
 				javascriptreact = { "prettier" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },

@@ -1,37 +1,26 @@
+function ColorMyPencils(color)
+	color = color or "rose-pine"
+	vim.cmd.colorscheme(color)
+end
+
 return {
-  {
-    "rebelot/kanagawa.nvim",
-    config = function()
-      require("kanagawa").setup({
-        undercurl = true,
-      })
-    end
-  },
-	{
-		"kdheepak/monochrome.nvim",
-		config = function()
-		end,
-	},
-	{
-		"projekt0n/github-nvim-theme",
-		name = "github-theme",
-		config = function()
-			require("github-theme").setup({})
-		end,
-	},
-	{
-		"sainnhe/everforest",
-		config = function()
-		end,
-	},
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
-			require("rose-pine").setup({
-				styles = {
-				},
-			})
+			require("rose-pine").setup({ disable_background = true })
+			vim.cmd("colorscheme rose-pine")
+			ColorMyPencils()
+			vim.cmd([[
+    hi Normal guibg=NONE
+    hi NormalNC guibg=NONE
+    hi TelescopeNormal guibg=NONE
+    hi TelescopeBorder guibg=NONE
+    hi TelescopePromptNormal guibg=NONE
+    hi TelescopePromptBorder guibg=NONE
+    hi TelescopePreviewNormal guibg=NONE
+    hi TelescopePreviewBorder guibg=NONE
+]])
 		end,
 	},
 }

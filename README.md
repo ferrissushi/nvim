@@ -1,5 +1,4 @@
-# nvimrc/
-
+# nvimrc/:
 <a href="https://dotfyle.com/ferrissushi/nvimrc"><img src="https://dotfyle.com/ferrissushi/nvimrc/badges/plugins?style=flat" /></a>
 <a href="https://dotfyle.com/ferrissushi/nvimrc"><img src="https://dotfyle.com/ferrissushi/nvimrc/badges/leaderkey?style=flat" /></a>
 <a href="https://dotfyle.com/ferrissushi/nvimrc"><img src="https://dotfyle.com/ferrissushi/nvimrc/badges/plugin-manager?style=flat" /></a>
