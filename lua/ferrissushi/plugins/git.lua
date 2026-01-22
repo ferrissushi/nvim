@@ -18,7 +18,7 @@ return {
 			vim.keymap.set("n", "<leader>gb", ":Git blame<cr>", { desc = "[G]it [B]lame" })
 			vim.keymap.set("n", "gu", "<cmd>diffget //2<cr>")
 			vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
-      vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open git tab for interaction"})
+			vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open git tab for interaction" })
 
 			local nicky_group = vim.api.nvim_create_augroup("nicky_group", {})
 
@@ -107,6 +107,7 @@ return {
 				topdelete = { text = "" },
 				changedelete = { text = "▎" },
 			},
+            current_line_blame = true,
 		},
 	},
 	{
