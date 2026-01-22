@@ -74,6 +74,7 @@ return {
 					vim.g.zig_fmt_autosave = 0
 				end,
 				["lua_ls"] = function()
+          print("Right here now")
 					local lspconfig = vim.lsp.config
 					lspconfig.lua_ls.setup({
 						capabilities = capabilities,
@@ -153,5 +154,7 @@ return {
 				prefix = "",
 			},
 		})
+
+        vim.lsp.inlay_hint.enable(false)
 	end,
 }

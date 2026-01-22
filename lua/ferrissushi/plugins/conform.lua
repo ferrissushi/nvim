@@ -12,7 +12,6 @@ return {
 				javascript = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
-				java = { "google-java-format" },
 				rust = { "rustfmt" },
 			},
 		})

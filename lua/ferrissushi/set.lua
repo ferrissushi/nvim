@@ -1,11 +1,11 @@
 local opt = vim.opt
-local cmd = vim.cmd
 local o = vim.o
 local g = vim.g
 
+
 opt.scrolloff = 10
-opt.guicursor = ""
 opt.nu = true
+opt.guicursor = ""
 opt.relativenumber = true
 opt.number = true
 opt.undofile = true
@@ -21,13 +21,13 @@ opt.clipboard:append("unnamedplus")
 opt.splitright = true
 opt.splitbelow = true
 opt.swapfile = false
-opt.tabstop = 2
+opt.tabstop = 4
 opt.mouse = "a"
-opt.softtabstop = 2
-opt.shiftwidth = 2
+opt.softtabstop = 4
+opt.shiftwidth = 4
 opt.hlsearch = false
 opt.incsearch = true
-opt.colorcolumn = "100"
+opt.colorcolumn = "80"
 opt.wrap = false
 opt.swapfile = false
 opt.backup = false
@@ -38,14 +38,34 @@ opt.signcolumn = "yes"
 opt.isfname:append("@-@")
 opt.updatetime = 50
 opt.showmode = false
+vim._disable_lua_warnings = true
 g.have_nerd_font = true
 o.timeoutlen = 200
 o.confirm = true
-cmd([[let &t_Cs = "\e[4:3m"]])
-cmd([[let &t_Ce = "\e[4:0m"]])
 
 vim.diagnostic.config({
 	virtual_text = true,
 	signs = false,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+  },
+  callback = function()
+    -- indentation à 2 espaces
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+
+    -- utiliser des espaces au lieu des tabs
+    vim.opt_local.expandtab = true
+
+    -- indentation intelligente
+    vim.opt_local.smartindent = true
+  end,
 })
 

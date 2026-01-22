@@ -1,16 +1,9 @@
-function ColorMyPencils(color)
-	color = color or "rose-pine"
-	vim.cmd.colorscheme(color)
-end
-
 return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
 			require("rose-pine").setup({ disable_background = true })
-			vim.cmd("colorscheme rose-pine")
-			ColorMyPencils()
 			vim.cmd([[
     hi Normal guibg=NONE
     hi NormalNC guibg=NONE
@@ -21,6 +14,22 @@ return {
     hi TelescopePreviewNormal guibg=NONE
     hi TelescopePreviewBorder guibg=NONE
 ]])
+		end,
+	},
+	{
+		"olivercederborg/poimandres.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.cmd("colorscheme poimandres")
+			require("poimandres").setup({
+                disable_background = true,
+			})
+		end,
+
+		-- optionally set the colorscheme within lazy config
+		init = function()
+			vim.cmd("colorscheme poimandres")
 		end,
 	},
 }
