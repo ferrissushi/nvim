@@ -4,6 +4,7 @@ return {
 		name = "rose-pine",
 		config = function()
 			require("rose-pine").setup({ disable_background = true })
+            vim.cmd("colorscheme rose-pine")
 			vim.cmd([[
     hi Normal guibg=NONE
     hi NormalNC guibg=NONE
@@ -21,7 +22,7 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd("colorscheme poimandres")
+
 			require("poimandres").setup({
                 disable_background = true,
 			})
